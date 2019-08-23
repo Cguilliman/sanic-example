@@ -1,0 +1,7 @@
+.env
+.venv
+
+__pycache__
+
+server/app/settings/local.py
+*.pyc

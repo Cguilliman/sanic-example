@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: sanicex_redis
+    expose:
+      - 6379
+
+  db:
+    image: postgres:10.1-alpine
+    container_name: sanicex_psql
+    environment:
+      - POSTGRES_DB=sanic_example
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+
+  backend: &backend
+    build: ./server
+    container_name: sanicex_server
+    command: >
+      bash -c "python run.py"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/sanic_example
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=sanic_example
+      - DATABASE_HOST=db
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - 9000:9000
+    volumes:
+      - .:/code
+      - ./server:/code/server
+    depends_on:
+      - db
+      - redis
+    links:
+      - db:db
+      - redis:redis
+
+
+volumes:
+  postgres_data:
