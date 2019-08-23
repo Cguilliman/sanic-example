@@ -1,6 +1,7 @@
 from typing import Dict
 
 import jwt
+from marshmallow import ValidationError
 
 from app.settings import Settings
 from .models import User

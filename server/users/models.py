@@ -8,6 +8,7 @@ class User(models.Model):
     __tablename__ = "users"
 
     id = models.Column(models.Integer, primary_key=True)
+    email = models.Column(models.Unicode(100), nullable=True)
     username = models.Column(models.Unicode(100), nullable=False)
     password = models.Column(models.Unicode(100), nullable=False)
     is_active = models.Column(models.Boolean, default=False)

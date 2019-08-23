@@ -8,6 +8,7 @@ class LoginSerializer(Schema):
 
 class RegisterSerializer(Schema):
     username = fields.Str()
+    email = fields.Email()
     password1 = fields.Str()
     password2 = fields.Str()
 
@@ -15,3 +16,4 @@ class RegisterSerializer(Schema):
 class UserSerializer(Schema):
     id = fields.Int()
     username = fields.Str()
+    email = fields.Str()
