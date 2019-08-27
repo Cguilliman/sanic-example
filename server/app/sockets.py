@@ -1,5 +1,5 @@
-from chat.sockets import chat
+from chat.sockets import personal
 
 
 def init_ws(app):
-    app.add_websocket_route(chat, "chat/<pk>")
+    app.add_websocket_route(personal, "personal/")
